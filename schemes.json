@@ -1,0 +1,14 @@
+[
+  {
+    "name": "National Scholarship Portal",
+    "category": "student",
+    "eligibility": "Family income less than 2 lakh",
+    "documents": ["Aadhaar", "Income Certificate", "Marksheet"]
+  },
+  {
+    "name": "PM Kisan Yojana",
+    "category": "farmer",
+    "eligibility": "Small and marginal farmers",
+    "documents": ["Aadhaar", "Land Records"]
+  }
+]

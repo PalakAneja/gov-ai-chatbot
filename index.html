@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gov AI Chatbot</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+        }
+        #chatbox {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        #messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .user {
+            text-align: right;
+            color: blue;
+        }
+        .bot {
+            text-align: left;
+            color: green;
+        }
+        input {
+            width: 75%;
+            padding: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chatbox">
+    <h2>Gov AI Chatbot 🤖</h2>
+    <div id="messages"></div>
+    <br>
+    <input type="text" id="input" placeholder="Type here..." />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+async function sendMessage() {
+    let input = document.getElementById("input");
+    let message = input.value;
+
+    // Show user message
+    let messagesDiv = document.getElementById("messages");
+    messagesDiv.innerHTML += `<p class="user">${message}</p>`;
+
+    // Send to backend
+    let response = await fetch("http://127.0.0.1:8000/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: message })
+    });
+
+    let data = await response.json();
+
+    // Show bot reply
+    messagesDiv.innerHTML += `<p class="bot">${data.reply}</p>`;
+
+    input.value = "";
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+</script>
+
+</body>
+</html>
